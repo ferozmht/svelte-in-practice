@@ -3,7 +3,7 @@
   
 </script>  
 <header />
-
+<sidebar />
   <slot />
 
   <footer />
