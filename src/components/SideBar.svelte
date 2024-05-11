@@ -36,7 +36,7 @@
     </svelte:fragment>
     <!-- --- -->
    
-    <AppRailTile  on:click={gotoManager} bind:group={currentTile} name="tile-1" value={0} title="tile-1" class=" text-white-200 bg-white">
+    <AppRailTile  on:click={gotoManager} bind:group={currentTile} name="tile-1" value={0} title="tile-1" class=" text-white-200 bg-white " >
         <svelte:fragment slot="lead"><UserIcon size="27"  class="mx-auto"/></svelte:fragment>
         <div dir="ltr">
             <div class="border-s-indigo-500 ...">
