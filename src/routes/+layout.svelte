@@ -5,7 +5,7 @@
 	import Header from "../components/Header.svelte";
 	import SideBar from "../components/SideBar.svelte";
   import '../theme.postcss';
-
+  
 </script>  
 <div class="wrapper">
   <Header />

@@ -3,11 +3,21 @@ import { join } from 'path';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}',join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
-],
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
+    join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
+  ],
+   darkMode: 'class',// Enable dark mode
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Define dark mode colors
+        dark: {
+          background: '#1a202c',
+          text: '#ffffff',
+        },
+      },
+    },
   },
-  plugins: [require('@tailwindcss/forms'), skeleton]
-}
-
+  plugins: [require('@tailwindcss/forms'), skeleton],
+};
