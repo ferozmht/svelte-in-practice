@@ -5,7 +5,11 @@
 	import Header from "../components/Header.svelte";
 	import SideBar from "../components/SideBar.svelte";
   import '../theme.postcss';
-  
+  import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+
+import { storePopup } from '@skeletonlabs/skeleton';
+storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+			
 </script>  
 <div class="wrapper">
   <Header />
