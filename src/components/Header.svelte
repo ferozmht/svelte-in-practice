@@ -32,13 +32,13 @@
                 <div class="arrow bg-surface-100-800-token"></div>
             </div>
             <div use:popup={popupFeatured}>
-                <div on:click|stopPropagation={popupFeatured} tabindex="-1">
+                <div tabindex="-1">
                     <Avatar class="w-8 text-white" initials="DR" background="bg-red-500" rounded="rounded-full" />
                 </div>
                 <div class="card p-4 w-72 shadow-xl" data-popup="popupFeatured">
                     <div>
                     <p>Profile </p>
-                    <p>Login </p> 
+                    <p>Log Out </p> 
                     </div>
 
                     <div class="arrow bg-surface-100-800-token"></div>
