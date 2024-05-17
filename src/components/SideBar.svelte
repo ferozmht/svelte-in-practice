@@ -29,17 +29,17 @@
 
 
 </script>
-<div style="position: absolute; top: 0; left: 0; bottom:0" class="w-0"> 
-<AppRail class="app-bar h-10 p-0 w-0" background="bg-white h-full">
+<div style="position: absolute; top: 0; left: 0; bottom:0" class="w-0 dark:bg-black dark:text-white"> 
+<AppRail class="app-bar h-10 p-0 w-0" background="bg-white h-full dark:bg-black dark:text-white">
     <svelte:fragment slot="lead">
         <AppRailAnchor href="/">Todo</AppRailAnchor>
     </svelte:fragment>
     <!-- --- -->
    
-    <AppRailTile  on:click={gotoManager} bind:group={currentTile} name="tile-1" value={0} title="tile-1" class=" text-white-200 bg-white " >
+    <AppRailTile  on:click={gotoManager} bind:group={currentTile} name="tile-1" value={0} title="tile-1" class=" text-white-200 " >
         <svelte:fragment slot="lead"><UserIcon size="27"  class="mx-auto"/></svelte:fragment>
         <div dir="ltr">
-            <div class="border-s-indigo-500 ...">
+            <div class="border-s-indigo-500 " >
             <span>Manager</span>
         </div>
     </div>

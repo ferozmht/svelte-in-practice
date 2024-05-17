@@ -1,46 +1,45 @@
 <script lang="ts">
 	import { Avatar } from '@skeletonlabs/skeleton';
-
 	import { Edit2Icon, MessageCircleIcon, PlusCircleIcon, PocketIcon } from 'svelte-feather-icons';
-    import { baskets } from './data.js';
+	import { baskets } from './data.js';
 	import { flip } from 'svelte/animate';
 
 	let hoveringOverBasket: string | null = '';
+	let draggingItem: { basketIndex: number, itemIndex: number } | null = null;
 
-	function dragStart(event: any, basketIndex: any, itemIndex: any) {
-		// The data we want to make available when the element is dropped
-		// is the index of the item being dragged and
-		// the index of the basket from which it is leaving.
+	function dragStart(event: DragEvent, basketIndex: number, itemIndex: number) {
 		const data = { basketIndex, itemIndex };
-		event.dataTransfer.setData('text/plain', JSON.stringify(data));
+		event.dataTransfer?.setData('application/json', JSON.stringify(data));
+		draggingItem = data;
 	}
 
-	function drop(event: any, basketIndex: any) {
+	function dragEnd() {
+		draggingItem = null;
+	}
+
+	function drop(event: DragEvent, basketIndex: number) {
 		event.preventDefault();
-		const json = event.dataTransfer.getData('text/plain');
+		const json = event.dataTransfer?.getData('application/json');
+		if (!json) return;
+
 		const data = JSON.parse(json);
 
-		// Remove the item from one basket.
-		// Splice returns an array of the deleted elements, just one in this case.
+		// Remove the item from the original basket.
 		const [item] = baskets[data.basketIndex].items.splice(data.itemIndex, 1);
 
 		// Add the item to the drop target basket.
 		baskets[basketIndex].items.push(item);
-		// baskets = baskets;
 
 		hoveringOverBasket = null;
+		draggingItem = null;
 	}
 
-	// const options = { delay: 0, duration: 0 };
+	const options = { duration: 100 };
 </script>
 
-<div class="bg-slate-200 bottom-20">
-	<span
-		class="chip variant-filled-secondary text-3xl align-top bg-slate-200 flex justify-between items-center"
-	>
-		<span
-			class="chip variant-filled-secondary text-3xl align-top bg-slate-200 flex justify-between items-center"
-		>
+<div class="bg-slate-200 bottom-20 dark:bg-black dark:text-white" >
+	<span class="chip variant-filled-secondary text-3xl align-top bg-slate-200 flex justify-between items-center">
+		<span class="chip variant-filled-secondary text-3xl align-top bg-slate-200 flex justify-between items-center">
 			<div class="flex items-center justify-between">
 				<span>Studio Board</span>
 				<div class="flex items-center">
@@ -50,54 +49,55 @@
 						width="w-10"
 						class="rounded-full"
 					/>
+					
 				</div>
 			</div>
 		</span>
 	</span>
+</div>
 
-<div class="flex  space-x-40"  >
+<div class="flex justify-center mt-8 mb-8">
 	{#each baskets as basket, basketIndex (basket)}
 		<div
-		   
-			class="bg-white border border-gray-200 rounded-lg shadow-md w-80 mx-4"
+			animate:flip={options}
+			class="bg-white border border-gray-200 h-fit rounded-lg shadow-md w-80 mx-4  dark:text-white  dark:bg-black"
 			class:hovering={hoveringOverBasket === basket.name}
 		>
-			<div class="p-4 border-t-4 border-lime-500 w-full">
+			<div class="p-4 border-t-4 border-lime-500  dark:text-white dark:bg-black">
 				<p class="text-gray-600"></p>
-				<div class="card" 	
-				>
-					<header class="card-header text-cyan-700 text-2xl">{basket.name}</header>
+				<div class="card">
+					<header class="card-header text-cyan-700 text-2xl  dark:text-white" >{basket.name}</header>
 					<!-- svelte-ignore a11y-no-static-element-interactions -->
-					<section id="idd" 
-						class="p-4" 
+					<section id="idd"
+						class="p-4"
 						on:dragenter={() => (hoveringOverBasket = basket.name)}
 						on:dragleave={() => (hoveringOverBasket = null)}
 						on:drop={(event) => drop(event, basketIndex)}
 						on:dragover={(e) => e.preventDefault()}
-						
 					>
 						{#each basket.items as item, itemIndex (item)}
 							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div animate:flip={{ duration: 100 }}
+							<div animate:flip={{ duration: 150 }}
 								class="card border-2 rounded mb-4"
 								class:hover={hoveringOverBasket === basket.name}
+								class:transparent={draggingItem && draggingItem.basketIndex === basketIndex && draggingItem.itemIndex === itemIndex}
 								aria-dropeffect="move"
 								draggable={true}
 								on:dragstart={(event) => dragStart(event, basketIndex, itemIndex)}
-								
+								on:dragend={() => dragEnd()}
 							>
-								<header class="card-header">
+								<header class="card-header dark:text-white" >
 									<span class="badge variant-filled-tertiary text-sm"
-									class:bg-red-500={item.priority === 'high'}
-									class:bg-yellow-500={item.priority === 'medium'}
-									class:bg-green-500={item.priority === 'low'}
-									
-								>
-									{item.priority}
-								</span>
+										class:bg-red-500={item.priority === 'high'}
+										class:bg-yellow-500={item.priority === 'medium'}
+										class:bg-green-500={item.priority === 'low'}
+									>
+										{item.priority}
+									</span>
 								</header>
-								<section class="p-4">{item.title}</section>
-								<section class="p-4">{item.describe}</section>
+								<section class="p-4  dark:text-white">{item.title}</section>
+								<section class="p-4  dark:text-white ">{item.title}</section>
+								<section class="p-4  dark:text-white">{item.describe}</section>
 								<footer class="card-footer flex justify-between">
 									<div class="flex">
 										<Edit2Icon size="20" />
@@ -122,10 +122,13 @@
 		</div>
 	{/each}
 </div>
-</div>
+
 <style>
 	.hovering {
 		border-color: orange;
+	}
+	.transparent {
+		opacity: 0.5;
 	}
 	.item {
 		display: inline; /* required for flip to work */
@@ -138,9 +141,15 @@
 		padding: 10px;
 	}
 	#idd div:hover {
-		background: orange;
-		color: white;
-	}
+    background: linear-gradient(
+        to right,
+        #5a67d8 10%,
+        #63b3ed 30%,
+        #38a169 90%
+    );
+    color: white;
+}
+
 	ul {
 		border: solid lightgray 1px;
 		display: flex; /* required for drag & drop to work when .item display is inline */

@@ -13,8 +13,8 @@ export default {
       colors: {
         // Define dark mode colors
         dark: {
-          background: '#1a202c',
-          text: '#ffffff',
+          background: '#1e293b',
+          text: '#e2e8f0',
         },
       },
     },
