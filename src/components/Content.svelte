@@ -32,7 +32,26 @@
 
 		hoveringOverBasket = null;
 		draggingItem = null;
-	}
+       }
+        
+
+		function getBorderColor(basketName: string): string {
+        switch (basketName) {
+            case 'To Do':
+                return 'border-red-500';
+            case 'In Progress':
+                return 'border-blue-500';
+            case 'Completed':
+                return 'border-green-500';
+			case 'Review':
+                return 'border-green-500';
+				 default:
+                return 'border-gray-200';
+        }
+    }
+
+
+
 
 	const options = { duration: 100 };
 </script>
@@ -62,8 +81,10 @@
 			animate:flip={options}
 			class="bg-white border border-gray-200 h-fit rounded-lg shadow-md w-80 mx-4  dark:text-white  dark:bg-black"
 			class:hovering={hoveringOverBasket === basket.name}
+			
 		>
-			<div class="p-4 border-t-4 border-lime-500  dark:text-white dark:bg-black">
+			<div class="p-4 border-t-4  dark:text-white dark:bg-black "style="border-color: {hoveringOverBasket === basket.name ? getBorderColor(basket.name) : 'inherit'};">
+		
 				<p class="text-gray-600"></p>
 				<div class="card">
 					<header class="card-header text-cyan-700 text-2xl  dark:text-white" >{basket.name}</header>
@@ -78,8 +99,10 @@
 						{#each basket.items as item, itemIndex (item)}
 							<!-- svelte-ignore a11y-no-static-element-interactions -->
 							<div animate:flip={{ duration: 150 }}
-								class="card border-2 rounded mb-4"
+								class="card border-2 rounded mb-4 "
 								class:hover={hoveringOverBasket === basket.name}
+								
+							
 								class:transparent={draggingItem && draggingItem.basketIndex === basketIndex && draggingItem.itemIndex === itemIndex}
 								aria-dropeffect="move"
 								draggable={true}
@@ -141,12 +164,7 @@
 		padding: 10px;
 	}
 	#idd div:hover {
-    background: linear-gradient(
-        to right,
-        #5a67d8 10%,
-        #63b3ed 30%,
-        #38a169 90%
-    );
+    background:lightgreen;
     color: white;
 }
 
