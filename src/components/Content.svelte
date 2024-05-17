@@ -26,12 +26,12 @@
 
 		// Add the item to the drop target basket.
 		baskets[basketIndex].items.push(item);
-		baskets = baskets;
+		// baskets = baskets;
 
 		hoveringOverBasket = null;
 	}
 
-	// const options = { delay: 500, duration: 500 };
+	// const options = { delay: 0, duration: 0 };
 </script>
 
 <div class="bg-slate-200 bottom-20">
@@ -54,11 +54,11 @@
 			</div>
 		</span>
 	</span>
-</div>
-<div class="flex  space-x-20"  >
+
+<div class="flex  space-x-40"  >
 	{#each baskets as basket, basketIndex (basket)}
 		<div
-			animate:flip={options}
+		   
 			class="bg-white border border-gray-200 rounded-lg shadow-md w-80 mx-4"
 			class:hovering={hoveringOverBasket === basket.name}
 		>
@@ -68,22 +68,23 @@
 				>
 					<header class="card-header text-cyan-700 text-2xl">{basket.name}</header>
 					<!-- svelte-ignore a11y-no-static-element-interactions -->
-					<section id="idd"
+					<section id="idd" 
 						class="p-4" 
 						on:dragenter={() => (hoveringOverBasket = basket.name)}
 						on:dragleave={() => (hoveringOverBasket = null)}
 						on:drop={(event) => drop(event, basketIndex)}
 						on:dragover={(e) => e.preventDefault()}
+						
 					>
 						{#each basket.items as item, itemIndex (item)}
 							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div 
+							<div animate:flip={{ duration: 100 }}
 								class="card border-2 rounded mb-4"
 								class:hover={hoveringOverBasket === basket.name}
 								aria-dropeffect="move"
 								draggable={true}
 								on:dragstart={(event) => dragStart(event, basketIndex, itemIndex)}
-								animate:flip
+								
 							>
 								<header class="card-header">
 									<span class="badge variant-filled-tertiary text-sm"
@@ -121,7 +122,7 @@
 		</div>
 	{/each}
 </div>
-
+</div>
 <style>
 	.hovering {
 		border-color: orange;
