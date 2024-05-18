@@ -50,7 +50,9 @@
         }
     }
 
-
+	function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+    }
 
 
 	const options = { duration: 100 };
@@ -61,14 +63,16 @@
 		<span class="chip variant-filled-secondary text-3xl align-top bg-slate-200 flex justify-between items-center">
 			<div class="flex items-center justify-between">
 				<span>Studio Board</span>
-				<div class="flex items-center">
+				<div class="flex items-center ml-8">
 					<PocketIcon size="24" />
-					<Avatar
-						src="https://images.unsplash.com/photo-1617296538902-887900d9b592?ixid=M3w0Njc5ODF8MHwxfGFsbHx8fHx8fHx8fDE2ODc5NzExMDB8&ixlib=rb-4.0.3&w=128&h=128&auto=format&fit=crop"
-						width="w-10"
-						class="rounded-full"
-					/>
 					
+					<div class="flex items-center fixed right-0">
+					<button on:click={toggleDarkMode} class="toggle-button ml-4 top-10 bottom-10 resize-y">
+						Toggle Dark Mode
+					</button>
+					
+				</div>
+				
 				</div>
 			</div>
 		</span>
@@ -83,7 +87,7 @@
 			class:hovering={hoveringOverBasket === basket.name}
 			
 		>
-			<div class="p-4 border-t-4  dark:text-white dark:bg-black "style="border-color: {hoveringOverBasket === basket.name ? getBorderColor(basket.name) : 'inherit'};">
+			<div class="p-4 border-t-4 border-amber-900 dark:text-white dark:bg-black">
 		
 				<p class="text-gray-600"></p>
 				<div class="card">
@@ -174,4 +178,30 @@
 		height: 40px; /* needed when empty */
 		padding: 10px;
 	}
+
+	.toggle-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(45deg, #6B46C1, #3182CE);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        outline: none;
+        margin-left: 1rem; 
+    }
+
+    .toggle-button:hover {
+        background: linear-gradient(45deg, #3182CE, #6B46C1);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .toggle-button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    }
 </style>

@@ -11,9 +11,7 @@
         placement: 'bottom',
     };
 
-    function toggleDarkMode() {
-        document.documentElement.classList.toggle('dark');
-    }
+   
 </script>
 
 <header>
@@ -34,7 +32,7 @@
             </div>
             <div use:popup={popupFeatured}>
                 <div tabindex="-1">
-                    <Avatar class="w-8  text-white" initials="DR" background="bg-red-500" rounded="rounded-full" />
+                    <Avatar class="w-7 text-white" initials="DR" background="bg-red-500" rounded="rounded-full" />
                 </div>
                 <div class="card p-4 w-72 shadow-xl" data-popup="popupFeatured">
                     <div>
@@ -44,9 +42,7 @@
                     <div class="arrow bg-surface-100-800-token"></div>
                 </div>
             </div>
-            <button on:click={toggleDarkMode} class="toggle-button ml-4 top-10 bottom-10">
-                Toggle Dark Mode
-            </button>
+            
         </svelte:fragment>
     </AppBar>
 </header>
