@@ -37,14 +37,14 @@
 
 		function getBorderColor(basketName: string): string {
         switch (basketName) {
-            case 'To Do':
+            case 'Todo':
                 return 'border-red-500';
             case 'In Progress':
                 return 'border-blue-500';
             case 'Completed':
                 return 'border-green-500';
 			case 'Review':
-                return 'border-green-500';
+                return 'border-black-500';
 				 default:
                 return 'border-gray-200';
         }
@@ -67,7 +67,7 @@
 					<PocketIcon size="24" />
 					
 					<div class="flex items-center fixed right-0">
-					<button on:click={toggleDarkMode} class="toggle-button ml-4 top-10 bottom-10 resize-y">
+					<button on:click={toggleDarkMode} class=" toggle-button ml-4 top-10 bottom-10 ">
 						Toggle Dark Mode
 					</button>
 					
@@ -83,11 +83,12 @@
 	{#each baskets as basket, basketIndex (basket)}
 		<div
 			animate:flip={options}
-			class="bg-white border border-gray-200 h-fit rounded-lg shadow-md w-80 mx-4  dark:text-white  dark:bg-black"
+			class="bg-white border  h-fit rounded-lg shadow-md w-80 mx-4  dark:text-white  dark:bg-black"
 			class:hovering={hoveringOverBasket === basket.name}
 			
 		>
-			<div class="p-4 border-t-4 border-amber-900 dark:text-white dark:bg-black">
+			<div class="p-4 border-t-4 dark:text-white dark:bg-black"
+			style="border-top-color: {getBorderColor(basket.name)};">
 		
 				<p class="text-gray-600"></p>
 				<div class="card">
@@ -168,7 +169,7 @@
 		padding: 10px;
 	}
 	#idd div:hover {
-    background:lightgreen;
+    background:rgb(162, 242, 162);
     color: white;
 }
 

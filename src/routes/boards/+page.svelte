@@ -1,3 +1,1 @@
-<h1>
-    Welcome to Boards
-</h1>
+<h1>This is boards page</h1>
